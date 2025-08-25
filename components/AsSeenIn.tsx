@@ -31,36 +31,54 @@ export default function AsSeenIn() {
     }
   ]
 
-  const brandCollaborations = [
+  const moneySavingPrograms = [
     {
-      name: "Walmart Canada",
-      type: "Partnership",
-      description: "Exclusive deal curation and promotional campaigns"
+      name: "Triangle Rewards",
+      type: "Loyalty Program",
+      description: "Earn points at Canadian Tire, Sport Chek, and more",
+      icon: "🔺",
+      url: "https://triangle.canadiantire.ca",
+      color: "from-red-400 to-red-600"
     },
     {
-      name: "Loblaws",
-      type: "Collaboration", 
-      description: "Weekly grocery deal spotlights and savings guides"
+      name: "Scene+ Points",
+      type: "Rewards Program", 
+      description: "Earn at Cineplex, Sobeys, IGA, and Scotia partners",
+      icon: "🎬",
+      url: "https://www.scene.ca",
+      color: "from-purple-400 to-purple-600"
     },
     {
-      name: "Shoppers Drug Mart",
-      type: "Brand Ambassador",
-      description: "Beauty and health product deal discovery"
+      name: "Costco Membership",
+      type: "Wholesale Club",
+      description: "Bulk buying savings and exclusive member deals",
+      icon: "🏪",
+      url: "https://www.costco.ca",
+      color: "from-blue-400 to-blue-600"
     },
     {
-      name: "Canadian Tire",
-      type: "Partnership",
-      description: "Seasonal promotion and clearance deal features"
+      name: "Checkout 51",
+      type: "Cashback App",
+      description: "Earn cashback on groceries with receipt scanning",
+      icon: "💰",
+      url: "https://checkout51.com",
+      color: "from-green-400 to-green-600"
     },
     {
-      name: "Metro",
-      type: "Collaboration",
-      description: "Weekly flyer breakdowns and exclusive offers"
+      name: "Too Good To Go",
+      type: "Food Waste App",
+      description: "Save on surplus food from restaurants and stores",
+      icon: "🍽️",
+      url: "https://www.toogoodtogo.com/en-ca",
+      color: "from-emerald-400 to-emerald-600"
     },
     {
-      name: "Costco Canada",
-      type: "Content Creator",
-      description: "Bulk buying guides and membership deal optimization"
+      name: "Rakuten Canada",
+      type: "Cashback Portal",
+      description: "Earn cashback shopping online at 750+ stores",
+      icon: "🛒",
+      url: "https://www.rakuten.ca",
+      color: "from-orange-400 to-orange-600"
     }
   ]
 
@@ -127,27 +145,35 @@ export default function AsSeenIn() {
           </div>
         </div>
 
-        {/* Brand Collaborations */}
+        {/* Money Saving Programs */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold text-center mb-8 text-gray-900">Brand Collaborations</h3>
+          <h3 className="text-2xl font-bold text-center mb-8 text-gray-900">Money Saving Programs and Apps</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {brandCollaborations.map((brand, index) => (
+            {moneySavingPrograms.map((program, index) => (
               <motion.div
-                key={brand.name}
+                key={program.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <Card className="h-full bg-gradient-to-br from-rose-50 to-pink-50 border-2 border-rose-200 hover:shadow-lg transition-all duration-300">
+                <Card className="h-full bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group"
+                      onClick={() => window.open(program.url, '_blank')}>
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-3">
-                      <h4 className="text-lg font-bold text-gray-900">{brand.name}</h4>
-                      <span className="px-3 py-1 rounded-full text-xs font-bold text-rose-600 bg-rose-100">
-                        {brand.type}
+                      <div className="flex items-center gap-3">
+                        <span className="text-2xl">{program.icon}</span>
+                        <h4 className="text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors">{program.name}</h4>
+                      </div>
+                      <span className={`px-3 py-1 rounded-full text-xs font-bold text-white bg-gradient-to-r ${program.color}`}>
+                        {program.type}
                       </span>
                     </div>
-                    <p className="text-gray-600 text-sm">{brand.description}</p>
+                    <p className="text-gray-600 text-sm mb-3">{program.description}</p>
+                    <div className="flex items-center text-green-600 text-sm font-medium group-hover:text-green-700 transition-colors">
+                      <span>Learn More</span>
+                      <span className="ml-1 transform group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>

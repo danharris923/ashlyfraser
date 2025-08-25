@@ -14,27 +14,27 @@ export default function Community() {
       color: "from-blue-500 to-blue-700",
       bgColor: "from-blue-50 to-blue-100",
       borderColor: "border-blue-200",
-      url: "https://www.facebook.com/ashly.fraser.96"
+      url: "https://www.facebook.com/ashly.fraser.96/"
     },
     {
       name: "Instagram", 
-      handle: "@ashly_savingsguruca",
+      handle: "@ashly__savingsguruca",
       followers: "250K+",
       description: "Behind-the-scenes deal hunting and exclusive Instagram-only offers",
       color: "from-pink-500 to-purple-600",
       bgColor: "from-pink-50 to-purple-100",
       borderColor: "border-pink-200",
-      url: "https://www.instagram.com/ashly_savingsguruca"
+      url: "https://instagram.com/ashly__savingsguruca"
     },
     {
       name: "TikTok",
-      handle: "@ashly_savingsguru",
+      handle: "@savingsguru",
       followers: "180K+", 
       description: "Quick deal alerts and shopping hacks that go viral",
       color: "from-gray-800 to-black",
       bgColor: "from-gray-50 to-gray-100",
       borderColor: "border-gray-200",
-      url: "https://www.tiktok.com/@ashly_savingsguru"
+      url: "https://tiktok.com/@savingsguru"
     },
     {
       name: "YouTube",
@@ -44,7 +44,17 @@ export default function Community() {
       color: "from-red-500 to-red-700",
       bgColor: "from-red-50 to-red-100",
       borderColor: "border-red-200",
-      url: "https://www.youtube.com/@Ashly_Savingsguru"
+      url: "https://www.youtube.com/channel/UCbVX-yAa2etLXvkYGx1C_Dw"
+    },
+    {
+      name: "Threads",
+      handle: "@ashly_savingsguruca",
+      followers: "15K+",
+      description: "Real-time deal discussions and community engagement",
+      color: "from-gray-800 to-gray-900",
+      bgColor: "from-gray-50 to-gray-100",
+      borderColor: "border-gray-200",
+      url: "https://www.threads.com/@ashly_savingsguruca"
     }
   ]
 
@@ -79,7 +89,7 @@ export default function Community() {
         </motion.div>
 
         {/* Social Media Platforms */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {socialPlatforms.map((platform, index) => (
             <motion.div
               key={platform.name}

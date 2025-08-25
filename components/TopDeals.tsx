@@ -1,19 +1,33 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import GroceryFlyersModal from "@/components/modals/GroceryFlyersModal"
+import ClearanceDealsModal from "@/components/modals/ClearanceDealsModal"
+import PrintableCouponsModal from "@/components/modals/PrintableCouponsModal"
+import MailOutCouponsModal from "@/components/modals/MailOutCouponsModal"
+import CouponGuideModal from "@/components/modals/CouponGuideModal"
 
 export default function TopDeals() {
+  const [groceryModalOpen, setGroceryModalOpen] = useState(false)
+  const [clearanceModalOpen, setClearanceModalOpen] = useState(false)
+  const [printableCouponsModalOpen, setPrintableCouponsModalOpen] = useState(false)
+  const [mailOutCouponsModalOpen, setMailOutCouponsModalOpen] = useState(false)
+  const [couponGuideModalOpen, setCouponGuideModalOpen] = useState(false)
   const deals = [
     {
       title: "Grocery Deals",
-      description: "Weekly roundup of the best grocery savings across Canada",
+      description: "Weekly grocery flyers and deals across Canada",
       savings: "Up to 70% off",
       category: "Food & Groceries",
       color: "from-green-400 to-green-600",
       bgColor: "from-green-50 to-green-100",
-      borderColor: "border-green-200"
+      borderColor: "border-green-200",
+      action: "modal",
+      modal: "grocery"
     },
     {
       title: "Free Samples",
@@ -22,7 +36,8 @@ export default function TopDeals() {
       category: "Freebies",
       color: "from-rose-400 to-rose-600",
       bgColor: "from-rose-50 to-rose-100",
-      borderColor: "border-rose-200"
+      borderColor: "border-rose-200",
+      link: "https://www.samplesource.com/?site=en"
     },
     {
       title: "Online Deals",
@@ -31,7 +46,8 @@ export default function TopDeals() {
       category: "E-commerce",
       color: "from-purple-400 to-purple-600",
       bgColor: "from-purple-50 to-purple-100",
-      borderColor: "border-purple-200"
+      borderColor: "border-purple-200",
+      link: "https://www.rakuten.ca"
     },
     {
       title: "Cashback Offers",
@@ -40,7 +56,8 @@ export default function TopDeals() {
       category: "Rewards",
       color: "from-blue-400 to-blue-600",
       bgColor: "from-blue-50 to-blue-100",
-      borderColor: "border-blue-200"
+      borderColor: "border-blue-200",
+      link: "https://checkout51.com"
     },
     {
       title: "Clearance Finds",
@@ -49,7 +66,9 @@ export default function TopDeals() {
       category: "Clearance",
       color: "from-amber-400 to-amber-600",
       bgColor: "from-amber-50 to-amber-100",
-      borderColor: "border-amber-200"
+      borderColor: "border-amber-200",
+      action: "modal",
+      modal: "clearance"
     },
     {
       title: "Kids & Family",
@@ -58,7 +77,41 @@ export default function TopDeals() {
       category: "Family",
       color: "from-pink-400 to-pink-600",
       bgColor: "from-pink-50 to-pink-100",
-      borderColor: "border-pink-200"
+      borderColor: "border-pink-200",
+      link: "https://www.toogoodtogo.com/en-ca"
+    },
+    {
+      title: "Printable Coupons",
+      description: "Top Canadian coupon sites and cashback programs",
+      savings: "Free Coupons",
+      category: "Coupons",
+      color: "from-indigo-400 to-purple-600",
+      bgColor: "from-indigo-50 to-purple-100",
+      borderColor: "border-indigo-200",
+      action: "modal",
+      modal: "printable"
+    },
+    {
+      title: "Mail-Out Coupons",
+      description: "Companies that send free coupons and samples by mail",
+      savings: "Direct Mail",
+      category: "Coupons",
+      color: "from-emerald-400 to-teal-600",
+      bgColor: "from-emerald-50 to-teal-100",
+      borderColor: "border-emerald-200",
+      action: "modal",
+      modal: "mailout"
+    },
+    {
+      title: "Coupon Guide",
+      description: "Complete beginner's guide to couponing in Canada",
+      savings: "Learn & Save",
+      category: "Education",
+      color: "from-rose-400 to-pink-600",
+      bgColor: "from-rose-50 to-pink-100",
+      borderColor: "border-rose-200",
+      action: "modal",
+      modal: "guide"
     }
   ]
 
@@ -74,8 +127,8 @@ export default function TopDeals() {
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6 text-gray-900">
             Top{" "}
-            <span className="bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">
-              Deals & Coupons
+            <span className="bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 bg-clip-text text-transparent">
+              Grocery Deals
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -106,11 +159,42 @@ export default function TopDeals() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <Button 
-                    className={`w-full bg-gradient-to-r ${deal.color} hover:opacity-90 text-white font-semibold py-3 rounded-xl transition-all duration-300`}
-                  >
-                    View Deals
-                  </Button>
+                  {deal.action === 'modal' ? (
+                    <Button 
+                      className={`w-full bg-gradient-to-r ${deal.color} hover:opacity-90 text-white font-semibold py-3 rounded-xl transition-all duration-300`}
+                      onClick={() => {
+                        if (deal.modal === 'grocery') {
+                          setGroceryModalOpen(true)
+                        } else if (deal.modal === 'clearance') {
+                          setClearanceModalOpen(true)
+                        } else if (deal.modal === 'printable') {
+                          setPrintableCouponsModalOpen(true)
+                        } else if (deal.modal === 'mailout') {
+                          setMailOutCouponsModalOpen(true)
+                        } else if (deal.modal === 'guide') {
+                          setCouponGuideModalOpen(true)
+                        }
+                      }}
+                    >
+                      View Deals
+                    </Button>
+                  ) : deal.link?.startsWith('http') ? (
+                    <a href={deal.link} target="_blank" rel="noopener noreferrer" className="block">
+                      <Button 
+                        className={`w-full bg-gradient-to-r ${deal.color} hover:opacity-90 text-white font-semibold py-3 rounded-xl transition-all duration-300`}
+                      >
+                        View Deals
+                      </Button>
+                    </a>
+                  ) : (
+                    <Link href={deal.link || "/flyers"} className="block">
+                      <Button 
+                        className={`w-full bg-gradient-to-r ${deal.color} hover:opacity-90 text-white font-semibold py-3 rounded-xl transition-all duration-300`}
+                      >
+                        View Deals
+                      </Button>
+                    </Link>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>
@@ -124,11 +208,36 @@ export default function TopDeals() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <Button className="bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 hover:from-rose-600 hover:via-pink-600 hover:to-purple-600 text-white px-8 py-4 text-lg font-bold rounded-2xl transform hover:scale-105 transition-all duration-300 shadow-xl">
-            See All Deals →
+          <Button 
+            className="bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 hover:from-green-600 hover:via-emerald-600 hover:to-teal-600 text-white px-8 py-4 text-lg font-bold rounded-2xl transform hover:scale-105 transition-all duration-300 shadow-xl"
+            onClick={() => setGroceryModalOpen(true)}
+          >
+            Browse Grocery Deals →
           </Button>
         </motion.div>
       </div>
+      
+      {/* Modals */}
+      <GroceryFlyersModal 
+        isOpen={groceryModalOpen}
+        onClose={() => setGroceryModalOpen(false)}
+      />
+      <ClearanceDealsModal
+        isOpen={clearanceModalOpen}
+        onClose={() => setClearanceModalOpen(false)}
+      />
+      <PrintableCouponsModal
+        isOpen={printableCouponsModalOpen}
+        onClose={() => setPrintableCouponsModalOpen(false)}
+      />
+      <MailOutCouponsModal
+        isOpen={mailOutCouponsModalOpen}
+        onClose={() => setMailOutCouponsModalOpen(false)}
+      />
+      <CouponGuideModal
+        isOpen={couponGuideModalOpen}
+        onClose={() => setCouponGuideModalOpen(false)}
+      />
     </section>
   )
 }

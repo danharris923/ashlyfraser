@@ -76,7 +76,7 @@ export default function Hero() {
         <div className="flex space-x-3">
           {/* Instagram */}
           <a 
-            href="https://www.instagram.com/ashly_savingsguruca" 
+            href="https://instagram.com/ashly__savingsguruca" 
             target="_blank" 
             rel="noopener noreferrer"
             className="w-8 h-8 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform"
@@ -85,7 +85,7 @@ export default function Hero() {
           </a>
           {/* YouTube */}
           <a 
-            href="https://www.youtube.com/@Ashly_Savingsguru" 
+            href="https://www.youtube.com/channel/UCbVX-yAa2etLXvkYGx1C_Dw" 
             target="_blank" 
             rel="noopener noreferrer"
             className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform"
@@ -94,25 +94,25 @@ export default function Hero() {
           </a>
           {/* Facebook */}
           <a 
-            href="https://www.facebook.com/ashly.fraser.96" 
+            href="https://www.facebook.com/ashly.fraser.96/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center hover:scale-110 transition-transform"
           >
             <span className="text-white text-xs font-bold">FB</span>
           </a>
-          {/* Lemon8 */}
+          {/* TikTok */}
           <a 
-            href="http://v.lemon8-app.com/al/AgpbybTfYp" 
+            href="https://tiktok.com/@savingsguru" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center hover:scale-110 transition-transform"
+            className="w-8 h-8 bg-black rounded-lg flex items-center justify-center hover:scale-110 transition-transform"
           >
-            <span className="text-gray-900 text-xs font-bold">L8</span>
+            <span className="text-white text-xs font-bold">TT</span>
           </a>
           {/* Threads */}
           <a 
-            href="https://www.threads.net/@ashly_savingsguruca" 
+            href="https://www.threads.com/@ashly_savingsguruca" 
             target="_blank" 
             rel="noopener noreferrer"
             className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center hover:scale-110 transition-transform border border-gray-700"
