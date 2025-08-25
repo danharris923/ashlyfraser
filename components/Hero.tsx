@@ -41,7 +41,7 @@ export default function Hero() {
         </h1>
 
         <p className="text-lg md:text-xl lg:text-2xl text-gray-700 font-medium leading-relaxed">
-          Hi, I'm Ashly Fraser — Canada's top couponing and deal-finding influencer. I help thousands of families 
+          Hi, I'm Ashly Fraser — Canada's top couponing and deal-finding influencer. 🇨🇦 I help thousands of families 
           save money every day through smart shopping, exclusive deals, and proven money-saving strategies.
         </p>
 
