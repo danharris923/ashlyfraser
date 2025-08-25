@@ -35,13 +35,6 @@ export default function About() {
               </p>
             </div>
 
-            {/* Media logos */}
-            <div className="mt-12">
-              <p className="text-gray-600 font-medium mb-6 text-lg">As featured in:</p>
-              <div className="flex justify-center items-center opacity-60">
-                <div className="text-2xl font-bold text-gray-400">The Globe and Mail</div>
-              </div>
-            </div>
           </div>
 
           {/* Social Proof Stats */}

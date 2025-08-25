@@ -1,19 +1,12 @@
 "use client"
 
-import { useState } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import CouponStackingModal from "@/components/modals/CouponStackingModal"
-import CashbackComparisonModal from "@/components/modals/CashbackComparisonModal"
-import SeasonalShoppingModal from "@/components/modals/SeasonalShoppingModal"
-import ClearanceSecretsModal from "@/components/modals/ClearanceSecretsModal"
+import { useRouter } from "next/navigation"
 
 export default function WhatsNew() {
-  const [couponStackingModal, setCouponStackingModal] = useState(false)
-  const [cashbackComparisonModal, setCashbackComparisonModal] = useState(false)
-  const [seasonalShoppingModal, setSeasonalShoppingModal] = useState(false)
-  const [clearanceSecretsModal, setClearanceSecretsModal] = useState(false)
+  const router = useRouter()
 
   const blogPosts = [
     {
@@ -181,10 +174,10 @@ export default function WhatsNew() {
                     <Button 
                       className="bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 text-sm"
                       onClick={() => {
-                        if (guide.title === "Coupon Stacking Mastery") setCouponStackingModal(true)
-                        else if (guide.title === "Cashback Apps Comparison 2024") setCashbackComparisonModal(true)
-                        else if (guide.title === "Seasonal Shopping Calendar") setSeasonalShoppingModal(true)
-                        else if (guide.title === "Clearance Shopping Secrets") setClearanceSecretsModal(true)
+                        if (guide.title === "Coupon Stacking Mastery") router.push('/deals/coupon-stacking')
+                        else if (guide.title === "Cashback Apps Comparison 2024") router.push('/deals/cashback-comparison')
+                        else if (guide.title === "Seasonal Shopping Calendar") router.push('/deals/seasonal-shopping')
+                        else if (guide.title === "Clearance Shopping Secrets") router.push('/deals/clearance-secrets')
                       }}
                     >
                       See Now
@@ -243,11 +236,6 @@ export default function WhatsNew() {
         </motion.div>
       </div>
 
-      {/* Guide Modals */}
-      <CouponStackingModal isOpen={couponStackingModal} onClose={() => setCouponStackingModal(false)} />
-      <CashbackComparisonModal isOpen={cashbackComparisonModal} onClose={() => setCashbackComparisonModal(false)} />
-      <SeasonalShoppingModal isOpen={seasonalShoppingModal} onClose={() => setSeasonalShoppingModal(false)} />
-      <ClearanceSecretsModal isOpen={clearanceSecretsModal} onClose={() => setClearanceSecretsModal(false)} />
     </section>
   )
 }

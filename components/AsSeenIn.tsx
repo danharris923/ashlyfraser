@@ -93,39 +93,15 @@ export default function AsSeenIn() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6 text-gray-900">
-            As Seen{" "}
+            Money Saving{" "}
             <span className="bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">
-              In Media
+              Resources
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Trusted by major Canadian media outlets and leading retail brands
+            Essential programs and apps for Canadian families to maximize their savings
           </p>
         </motion.div>
-
-        {/* Media Features */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-bold text-center mb-8 text-gray-900">Media Features</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {mediaFeatures.map((media, index) => (
-              <motion.div
-                key={media.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="h-full bg-white border-2 border-gray-200 hover:shadow-lg transition-all duration-300 hover:scale-105">
-                  <CardContent className="p-6 text-center">
-                    <div className="text-4xl mb-4">{media.logo}</div>
-                    <h4 className="text-lg font-bold text-gray-900 mb-2">{media.name}</h4>
-                    <p className="text-gray-600 text-sm">{media.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
 
         {/* Money Saving Programs */}
         <div className="mb-16">
