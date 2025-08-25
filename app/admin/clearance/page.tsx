@@ -7,34 +7,34 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
-import { Save, Edit3, Eye, EyeOff, RefreshCw } from 'lucide-react'
+import { Save, Edit3, Eye, EyeOff, RefreshCw, ArrowLeft } from 'lucide-react'
 import { Badge } from "@/components/ui/badge"
+import Image from 'next/image'
 
-interface Deal {
+interface ClearanceDeal {
   id: string
   title: string
   description: string
   savings: string
   category: string
-  color: string
-  bgColor: string
-  borderColor: string
-  action?: string
-  modal?: string
-  link?: string
+  brand: string
+  logoUrl: string
+  imageUrl: string
+  websiteUrl: string
+  validUntil: string
   enabled: boolean
 }
 
-export default function AdminDashboard() {
-  const [deals, setDeals] = useState<Deal[]>([])
-  const [editingDeal, setEditingDeal] = useState<Deal | null>(null)
+export default function ClearanceAdmin() {
+  const [deals, setDeals] = useState<ClearanceDeal[]>([])
+  const [editingDeal, setEditingDeal] = useState<ClearanceDeal | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState('')
   const [authenticated, setAuthenticated] = useState(false)
   const [password, setPassword] = useState('')
 
-  const ADMIN_PASSWORD = 'ashly2024' // Simple password for Ashly
+  const ADMIN_PASSWORD = 'ashly2024'
 
   const handleLogin = () => {
     if (password === ADMIN_PASSWORD) {
@@ -53,13 +53,12 @@ export default function AdminDashboard() {
 
   const fetchDeals = async () => {
     try {
-      const response = await fetch('/api/deals')
+      const response = await fetch('/api/clearance')
       const data = await response.json()
-      setDeals(data)
+      setDeals(data.clearanceDeals || [])
       setLoading(false)
     } catch (error) {
       console.error('Error fetching deals:', error)
-      setMessage('Error loading deals')
       setLoading(false)
     }
   }
@@ -67,17 +66,17 @@ export default function AdminDashboard() {
   const saveDeals = async () => {
     setSaving(true)
     try {
-      const response = await fetch('/api/deals', {
+      const response = await fetch('/api/clearance', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(deals)
+        body: JSON.stringify({ clearanceDeals: deals })
       })
       
       const result = await response.json()
       if (result.success) {
-        setMessage('✅ Changes saved successfully!')
+        setMessage('✅ Clearance deals updated successfully!')
         setTimeout(() => setMessage(''), 3000)
       } else {
         setMessage('❌ Failed to save changes')
@@ -89,7 +88,7 @@ export default function AdminDashboard() {
     setSaving(false)
   }
 
-  const updateDeal = (updatedDeal: Deal) => {
+  const updateDeal = (updatedDeal: ClearanceDeal) => {
     setDeals(deals.map(deal => 
       deal.id === updatedDeal.id ? updatedDeal : deal
     ))
@@ -105,7 +104,7 @@ export default function AdminDashboard() {
   // Show login form if not authenticated
   if (!authenticated) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 p-4">
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 p-4">
         <div className="container mx-auto max-w-md">
           <div className="flex items-center justify-center min-h-screen">
             <Card className="w-full">
@@ -114,7 +113,7 @@ export default function AdminDashboard() {
                   👋 Hey Ashly!
                 </CardTitle>
                 <CardDescription>
-                  Enter your password to access the dashboard
+                  Enter your password to manage clearance deals
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -136,13 +135,10 @@ export default function AdminDashboard() {
                 </div>
                 <Button 
                   onClick={handleLogin}
-                  className="w-full bg-rose-500 hover:bg-rose-600"
+                  className="w-full bg-amber-500 hover:bg-amber-600"
                 >
                   Access Dashboard
                 </Button>
-                <p className="text-xs text-gray-500 text-center">
-                  This keeps your content management secure
-                </p>
               </CardContent>
             </Card>
           </div>
@@ -153,11 +149,11 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white p-4">
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 p-4">
         <div className="container mx-auto max-w-6xl">
           <div className="flex items-center justify-center h-64">
-            <RefreshCw className="w-8 h-8 animate-spin text-blue-500" />
-            <span className="ml-3 text-xl text-gray-600">Loading dashboard...</span>
+            <RefreshCw className="w-8 h-8 animate-spin text-amber-500" />
+            <span className="ml-3 text-xl text-gray-600">Loading clearance deals...</span>
           </div>
         </div>
       </div>
@@ -165,36 +161,28 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white p-4">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 p-4">
       <div className="container mx-auto max-w-6xl">
         
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            Hey Ashly! 👋
-          </h1>
-          <p className="text-xl text-gray-600 mb-6">
-            Your simple dashboard to manage website content - no tech skills needed!
-          </p>
-          
-          {/* Navigation Tabs */}
-          <div className="flex justify-center gap-2 mb-6">
-            <Button className="bg-rose-500 hover:bg-rose-600 text-white">
-              Deal Cards
-            </Button>
-            <Button variant="outline" onClick={() => window.location.href = '/admin/cashback-apps'}>
-              Cashback Apps
-            </Button>
-            <Button variant="outline" onClick={() => window.location.href = '/admin/free-samples'}>
-              Free Samples
-            </Button>
-            <Button variant="outline" onClick={() => window.location.href = '/admin/clearance'}>
-              Clearance Deals
-            </Button>
-            <Button variant="outline" onClick={() => window.location.href = '/admin/content'}>
-              Page Content
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <Button 
+              variant="outline" 
+              onClick={() => window.location.href = '/admin'}
+              className="mb-2"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Dashboard
             </Button>
           </div>
+          
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            🏷️ Manage Clearance Deals
+          </h1>
+          <p className="text-xl text-gray-600 mb-6">
+            Edit the clearance deals that show up on your clearance page
+          </p>
           
           {message && (
             <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-blue-800">
@@ -231,14 +219,14 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Deals Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {deals.map((deal) => (
-            <Card key={deal.id} className={`relative ${!deal.enabled ? 'opacity-50' : ''}`}>
+            <Card key={deal.id} className={`relative ${!deal.enabled ? 'opacity-50' : ''} bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200`}>
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Badge className={`bg-gradient-to-r ${deal.color} text-white`}>
+                    <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs">
                       {deal.category}
                     </Badge>
                     <button
@@ -267,21 +255,31 @@ export default function AdminDashboard() {
                   </Button>
                 </div>
                 
-                <CardTitle className="text-lg">{deal.title}</CardTitle>
+                {/* Brand Logo */}
+                <div className="relative w-full h-16 bg-white rounded-lg p-2 shadow-sm mb-2">
+                  <Image
+                    src={deal.logoUrl}
+                    alt={`${deal.brand} logo`}
+                    fill
+                    className="object-contain p-1"
+                    sizes="200px"
+                  />
+                </div>
+                
+                <CardTitle className="text-lg flex items-center justify-between">
+                  {deal.brand}
+                  <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white">
+                    {deal.savings}
+                  </Badge>
+                </CardTitle>
                 <CardDescription className="text-sm">
                   {deal.description}
                 </CardDescription>
               </CardHeader>
               
               <CardContent>
-                <div className="flex items-center justify-between text-sm text-gray-600">
-                  <span>Savings: <strong>{deal.savings}</strong></span>
-                  {deal.link && (
-                    <span className="text-blue-600 text-xs">Links to website</span>
-                  )}
-                  {deal.modal && (
-                    <span className="text-purple-600 text-xs">Opens modal</span>
-                  )}
+                <div className="flex items-center justify-between text-xs text-gray-600">
+                  <span>Valid until: {deal.validUntil}</span>
                 </div>
               </CardContent>
             </Card>
@@ -291,23 +289,34 @@ export default function AdminDashboard() {
         {/* Edit Modal */}
         {editingDeal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-            <Card className="w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
               <CardHeader>
-                <CardTitle>Edit: {editingDeal.title}</CardTitle>
+                <CardTitle>Edit: {editingDeal.brand}</CardTitle>
                 <CardDescription>
-                  Make changes to this card. All fields are easy to understand!
+                  Update clearance deal information
                 </CardDescription>
               </CardHeader>
               
               <CardContent className="space-y-4">
-                <div>
-                  <Label htmlFor="title">Card Title</Label>
-                  <Input
-                    id="title"
-                    value={editingDeal.title}
-                    onChange={(e) => setEditingDeal({...editingDeal, title: e.target.value})}
-                    placeholder="e.g. Grocery Deals"
-                  />
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="brand">Brand Name</Label>
+                    <Input
+                      id="brand"
+                      value={editingDeal.brand}
+                      onChange={(e) => setEditingDeal({...editingDeal, brand: e.target.value})}
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="savings">Savings</Label>
+                    <Input
+                      id="savings"
+                      value={editingDeal.savings}
+                      onChange={(e) => setEditingDeal({...editingDeal, savings: e.target.value})}
+                      placeholder="e.g. Up to 70% OFF"
+                    />
+                  </div>
                 </div>
                 
                 <div>
@@ -316,42 +325,51 @@ export default function AdminDashboard() {
                     id="description"
                     value={editingDeal.description}
                     onChange={(e) => setEditingDeal({...editingDeal, description: e.target.value})}
-                    placeholder="Describe what this card offers..."
                     rows={3}
                   />
                 </div>
                 
-                <div>
-                  <Label htmlFor="savings">Savings Text</Label>
-                  <Input
-                    id="savings"
-                    value={editingDeal.savings}
-                    onChange={(e) => setEditingDeal({...editingDeal, savings: e.target.value})}
-                    placeholder="e.g. Up to 70% off"
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="category">Category Badge</Label>
-                  <Input
-                    id="category"
-                    value={editingDeal.category}
-                    onChange={(e) => setEditingDeal({...editingDeal, category: e.target.value})}
-                    placeholder="e.g. Food & Groceries"
-                  />
-                </div>
-                
-                {editingDeal.link && (
+                <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="link">Website Link (optional)</Label>
+                    <Label htmlFor="category">Category</Label>
                     <Input
-                      id="link"
-                      value={editingDeal.link}
-                      onChange={(e) => setEditingDeal({...editingDeal, link: e.target.value})}
-                      placeholder="https://example.com"
+                      id="category"
+                      value={editingDeal.category}
+                      onChange={(e) => setEditingDeal({...editingDeal, category: e.target.value})}
+                      placeholder="e.g. Athletic Wear, Designer"
                     />
                   </div>
-                )}
+                  
+                  <div>
+                    <Label htmlFor="validUntil">Valid Until</Label>
+                    <Input
+                      id="validUntil"
+                      value={editingDeal.validUntil}
+                      onChange={(e) => setEditingDeal({...editingDeal, validUntil: e.target.value})}
+                      placeholder="2025-12-31"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <Label htmlFor="websiteUrl">Website URL</Label>
+                  <Input
+                    id="websiteUrl"
+                    value={editingDeal.websiteUrl}
+                    onChange={(e) => setEditingDeal({...editingDeal, websiteUrl: e.target.value})}
+                    placeholder="https://example.com/sale"
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="logoUrl">Logo URL</Label>
+                  <Input
+                    id="logoUrl"
+                    value={editingDeal.logoUrl}
+                    onChange={(e) => setEditingDeal({...editingDeal, logoUrl: e.target.value})}
+                    placeholder="https://example.com/logo.png"
+                  />
+                </div>
                 
                 <div className="flex items-center space-x-2">
                   <Switch
@@ -359,7 +377,7 @@ export default function AdminDashboard() {
                     checked={editingDeal.enabled}
                     onCheckedChange={(checked) => setEditingDeal({...editingDeal, enabled: checked})}
                   />
-                  <Label htmlFor="enabled">Show this card on website</Label>
+                  <Label htmlFor="enabled">Show this deal on website</Label>
                 </div>
                 
                 <div className="flex gap-2 pt-4">
@@ -383,16 +401,16 @@ export default function AdminDashboard() {
         )}
         
         {/* Help Section */}
-        <Card className="mt-8 bg-blue-50 border-blue-200">
+        <Card className="mt-8 bg-amber-50 border-amber-200">
           <CardHeader>
-            <CardTitle className="text-blue-800">🤔 Need Help?</CardTitle>
+            <CardTitle className="text-amber-800">💡 Tips</CardTitle>
           </CardHeader>
-          <CardContent className="text-blue-700">
+          <CardContent className="text-amber-700">
             <ul className="space-y-2 text-sm">
-              <li>• Click the <Edit3 className="w-4 h-4 inline" /> button to edit any card</li>
-              <li>• Use the eye icon to show/hide cards from your website</li>
-              <li>• Don't forget to click "Save All Changes" when you're done!</li>
-              <li>• Changes appear on your website immediately after saving</li>
+              <li>• Click <Edit3 className="w-4 h-4 inline" /> to edit any clearance deal</li>
+              <li>• Use the eye icon to show/hide deals from your website</li>
+              <li>• Logo URLs should be high-quality brand logos</li>
+              <li>• Changes appear immediately after clicking "Save All Changes"</li>
             </ul>
           </CardContent>
         </Card>
