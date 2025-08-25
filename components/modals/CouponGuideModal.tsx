@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { X, BookOpen, CheckCircle, Star, Target, Users, TrendingUp, Lightbulb } from 'lucide-react'
+import { ArrowLeft, BookOpen, CheckCircle, Star, Target, Users, TrendingUp, Lightbulb, Instagram, Facebook, MessageCircle, Youtube, AtSign } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -135,35 +135,36 @@ export default function CouponGuideModal({ isOpen, onClose }: CouponGuideModalPr
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm">
-      <div className="fixed inset-4 bg-gradient-to-br from-rose-50 via-pink-50 to-red-50 rounded-2xl overflow-hidden">
-        {/* Header */}
-        <div className="sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-rose-200 p-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">
-                📚 Canadian Coupon Guide
-              </h1>
+    <div 
+      className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
+      onClick={handleBackdropClick}
+    >
+      <div className="fixed inset-0 flex flex-col bg-gradient-to-br from-rose-50 via-pink-50 to-red-50 animate-in slide-in-from-bottom duration-300 md:animate-in md:slide-in-from-bottom-4 md:fade-in md:zoom-in-95 md:inset-4 md:rounded-2xl md:shadow-2xl">
+        
+        {/* Mobile Header with Android-style back button */}
+        <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-md border-b border-rose-200">
+          <div className="flex items-center h-14 px-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onClose}
+              className="mr-3 p-2 hover:bg-rose-100 rounded-full"
+            >
+              <ArrowLeft className="w-5 h-5 text-rose-700" />
+            </Button>
+            <div className="flex-1">
+              <h1 className="text-lg font-semibold text-rose-800">Coupon Guide</h1>
+              <p className="text-xs text-rose-600">Complete couponing guide</p>
             </div>
-            <div className="flex items-center gap-4">
-              <Badge className="bg-gradient-to-r from-rose-500 to-pink-500 text-white border-0 px-4 py-2">
-                Beginner Friendly
-              </Badge>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={onClose}
-                className="text-gray-600 hover:text-gray-800 hover:bg-gray-100 w-10 h-10 rounded-full"
-              >
-                <X className="w-5 h-5" />
-              </Button>
-            </div>
+            <Badge className="bg-gradient-to-r from-rose-500 to-pink-500 text-white text-xs px-2 py-1">
+              Guide
+            </Badge>
           </div>
         </div>
 
-        {/* Content */}
-        <div className="p-8 h-[calc(100vh-200px)] overflow-y-auto">
-          <div className="max-w-6xl mx-auto">
+        {/* Content with overscroll behavior */}
+        <div className="flex-1 overflow-y-auto overscroll-contain px-4 pb-4">
+          <div className="pt-4 space-y-6">
             <div className="text-center mb-8">
               <p className="text-xl text-gray-700 font-medium">
                 Your complete guide to couponing in Canada
@@ -346,18 +347,41 @@ export default function CouponGuideModal({ isOpen, onClose }: CouponGuideModalPr
               <p className="text-gray-700 text-lg mb-4">
                 Join thousands of Canadians who follow Ashly's money-saving strategies
               </p>
-              <div className="flex justify-center gap-4">
+              <div className="flex flex-wrap gap-3 justify-center">
                 <Button 
-                  className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-bold px-6 py-3 rounded-xl"
+                  className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-medium px-4 py-3 rounded-xl text-sm active:scale-95 transition-transform flex items-center gap-2"
                   onClick={() => window.open('https://instagram.com/ashly__savingsguruca', '_blank')}
                 >
-                  Daily Tips on Instagram
+                  <Instagram className="w-4 h-4" />
+                  Instagram
                 </Button>
                 <Button 
-                  className="bg-gradient-to-r from-gray-800 to-black hover:from-gray-900 hover:to-gray-800 text-white font-bold px-6 py-3 rounded-xl"
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium px-4 py-3 rounded-xl text-sm active:scale-95 transition-transform flex items-center gap-2"
+                  onClick={() => window.open('https://www.facebook.com/ashly.fraser.96/', '_blank')}
+                >
+                  <Facebook className="w-4 h-4" />
+                  Facebook
+                </Button>
+                <Button 
+                  className="bg-gradient-to-r from-gray-800 to-black hover:from-gray-900 hover:to-gray-800 text-white font-medium px-4 py-3 rounded-xl text-sm active:scale-95 transition-transform flex items-center gap-2"
                   onClick={() => window.open('https://tiktok.com/@savingsguru', '_blank')}
                 >
-                  Video Guides on TikTok
+                  <MessageCircle className="w-4 h-4" />
+                  TikTok
+                </Button>
+                <Button 
+                  className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium px-4 py-3 rounded-xl text-sm active:scale-95 transition-transform flex items-center gap-2"
+                  onClick={() => window.open('https://www.youtube.com/channel/UCbVX-yAa2etLXvkYGx1C_Dw', '_blank')}
+                >
+                  <Youtube className="w-4 h-4" />
+                  YouTube
+                </Button>
+                <Button 
+                  className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-medium px-4 py-3 rounded-xl text-sm active:scale-95 transition-transform flex items-center gap-2"
+                  onClick={() => window.open('https://www.threads.com/@ashly_savingsguruca', '_blank')}
+                >
+                  <AtSign className="w-4 h-4" />
+                  Threads
                 </Button>
               </div>
             </div>

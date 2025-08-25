@@ -4,6 +4,7 @@ import TopDeals from "@/components/TopDeals"
 import Community from "@/components/Community"
 import AsSeenIn from "@/components/AsSeenIn"
 import WhatsNew from "@/components/WhatsNew"
+import DCCourse from "@/components/DCCourse"
 import FloatingDoodles from "@/components/FloatingDoodles"
 
 export default function LandingPage() {
@@ -16,6 +17,7 @@ export default function LandingPage() {
       <Community />
       <AsSeenIn />
       <WhatsNew />
+      <DCCourse />
     </div>
   )
 }

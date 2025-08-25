@@ -6,28 +6,10 @@ import { Card, CardContent } from "@/components/ui/card"
 export default function AsSeenIn() {
   const mediaFeatures = [
     {
-      name: "Global TV",
-      description: "Featured expert on money-saving strategies for Canadian families",
-      logo: "📺",
-      color: "from-blue-400 to-blue-600"
-    },
-    {
-      name: "CBC News",
-      description: "Go-to source for consumer savings and deal-finding advice",
+      name: "The Globe and Mail",
+      description: "Featured expert on Canadian consumer savings and smart shopping strategies",
       logo: "📰",
-      color: "from-red-400 to-red-600"
-    },
-    {
-      name: "CTV Morning Live",
-      description: "Regular guest sharing weekly deals and couponing tips",
-      logo: "🎥", 
-      color: "from-green-400 to-green-600"
-    },
-    {
-      name: "BlogTO",
-      description: "Toronto's trusted voice for local deals and savings opportunities",
-      logo: "📱",
-      color: "from-purple-400 to-purple-600"
+      color: "from-gray-600 to-gray-800"
     }
   ]
 

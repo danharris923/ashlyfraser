@@ -1,10 +1,20 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import CouponStackingModal from "@/components/modals/CouponStackingModal"
+import CashbackComparisonModal from "@/components/modals/CashbackComparisonModal"
+import SeasonalShoppingModal from "@/components/modals/SeasonalShoppingModal"
+import ClearanceSecretsModal from "@/components/modals/ClearanceSecretsModal"
 
 export default function WhatsNew() {
+  const [couponStackingModal, setCouponStackingModal] = useState(false)
+  const [cashbackComparisonModal, setCashbackComparisonModal] = useState(false)
+  const [seasonalShoppingModal, setSeasonalShoppingModal] = useState(false)
+  const [clearanceSecretsModal, setClearanceSecretsModal] = useState(false)
+
   const blogPosts = [
     {
       title: "Ultimate Canadian Grocery Savings Guide 2024",
@@ -168,8 +178,16 @@ export default function WhatsNew() {
                     <h4 className="text-lg font-bold text-gray-900 mb-2">{guide.title}</h4>
                     <p className="text-gray-600 text-sm mb-3">{guide.description}</p>
                     <p className="text-blue-600 font-semibold text-sm mb-4">{guide.downloads}</p>
-                    <Button className="bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 text-sm">
-                      Download Free
+                    <Button 
+                      className="bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 text-sm"
+                      onClick={() => {
+                        if (guide.title === "Coupon Stacking Mastery") setCouponStackingModal(true)
+                        else if (guide.title === "Cashback Apps Comparison 2024") setCashbackComparisonModal(true)
+                        else if (guide.title === "Seasonal Shopping Calendar") setSeasonalShoppingModal(true)
+                        else if (guide.title === "Clearance Shopping Secrets") setClearanceSecretsModal(true)
+                      }}
+                    >
+                      See Now
                     </Button>
                   </CardContent>
                 </Card>
@@ -224,6 +242,12 @@ export default function WhatsNew() {
           </div>
         </motion.div>
       </div>
+
+      {/* Guide Modals */}
+      <CouponStackingModal isOpen={couponStackingModal} onClose={() => setCouponStackingModal(false)} />
+      <CashbackComparisonModal isOpen={cashbackComparisonModal} onClose={() => setCashbackComparisonModal(false)} />
+      <SeasonalShoppingModal isOpen={seasonalShoppingModal} onClose={() => setSeasonalShoppingModal(false)} />
+      <ClearanceSecretsModal isOpen={clearanceSecretsModal} onClose={() => setClearanceSecretsModal(false)} />
     </section>
   )
 }

@@ -9,7 +9,7 @@ export default function Community() {
     {
       name: "Facebook",
       handle: "@SavingsGuru.ca",
-      followers: "60K+",
+      followers: "25K+",
       description: "Daily deals, freebies, and money-saving tips for Canadian families",
       color: "from-blue-500 to-blue-700",
       bgColor: "from-blue-50 to-blue-100",
@@ -19,7 +19,7 @@ export default function Community() {
     {
       name: "Instagram", 
       handle: "@ashly__savingsguruca",
-      followers: "250K+",
+      followers: "45K+",
       description: "Behind-the-scenes deal hunting and exclusive Instagram-only offers",
       color: "from-pink-500 to-purple-600",
       bgColor: "from-pink-50 to-purple-100",
@@ -29,7 +29,7 @@ export default function Community() {
     {
       name: "TikTok",
       handle: "@savingsguru",
-      followers: "180K+", 
+      followers: "20K+", 
       description: "Quick deal alerts and shopping hacks that go viral",
       color: "from-gray-800 to-black",
       bgColor: "from-gray-50 to-gray-100",
@@ -39,7 +39,7 @@ export default function Community() {
     {
       name: "YouTube",
       handle: "@Ashly_Savingsguru",
-      followers: "25K+",
+      followers: "8K+",
       description: "In-depth tutorials on couponing strategies and deal walkthroughs",
       color: "from-red-500 to-red-700",
       bgColor: "from-red-50 to-red-100",
@@ -49,7 +49,7 @@ export default function Community() {
     {
       name: "Threads",
       handle: "@ashly_savingsguruca",
-      followers: "15K+",
+      followers: "2K+",
       description: "Real-time deal discussions and community engagement",
       color: "from-gray-800 to-gray-900",
       bgColor: "from-gray-50 to-gray-100",
@@ -159,7 +159,7 @@ export default function Community() {
 
             <div className="text-center md:text-left">
               <div className="bg-white rounded-2xl p-6 shadow-lg mb-6">
-                <h4 className="text-xl font-bold text-gray-900 mb-4">Join 50,000+ Deal Hunters</h4>
+                <h4 className="text-xl font-bold text-gray-900 mb-4">Join 25,000+ Deal Hunters</h4>
                 <div className="flex flex-col space-y-3">
                   <input 
                     type="email" 

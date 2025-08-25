@@ -20,6 +20,7 @@ interface FlyerItem {
   validUntil?: string
   category?: string
   location?: string
+  websiteUrl?: string
 }
 
 interface GroceryFlyersModalProps {
@@ -242,8 +243,11 @@ export default function GroceryFlyersModal({ isOpen, onClose }: GroceryFlyersMod
                       </div>
                     )}
 
-                    <Button className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white h-9 text-sm font-medium active:scale-95 transition-transform">
-                      View Deal
+                    <Button 
+                      className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white h-9 text-sm font-medium active:scale-95 transition-transform"
+                      onClick={() => item.websiteUrl && window.open(item.websiteUrl, '_blank')}
+                    >
+                      Visit Store
                     </Button>
                   </CardContent>
                 </Card>

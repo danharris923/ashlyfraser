@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { ArrowLeft, ExternalLink, Gift, Percent, CreditCard, Star } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Gift, Percent, CreditCard, Star, Instagram, Facebook, MessageCircle, Youtube, AtSign } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -247,18 +247,41 @@ export default function PrintableCouponsModal({ isOpen, onClose }: PrintableCoup
                 <p className="text-sm text-gray-700 mb-4">
                   Combine printable coupons with store sales and cashback apps for maximum savings!
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <div className="flex flex-wrap gap-3 justify-center">
                   <Button 
-                    className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-bold px-6 py-3 rounded-xl text-sm active:scale-95 transition-transform"
+                    className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-medium px-4 py-3 rounded-xl text-sm active:scale-95 transition-transform flex items-center gap-2"
                     onClick={() => window.open('https://instagram.com/ashly__savingsguruca', '_blank')}
                   >
-                    Follow for Tips
+                    <Instagram className="w-4 h-4" />
+                    Instagram
                   </Button>
                   <Button 
-                    className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-bold px-6 py-3 rounded-xl text-sm active:scale-95 transition-transform"
+                    className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium px-4 py-3 rounded-xl text-sm active:scale-95 transition-transform flex items-center gap-2"
+                    onClick={() => window.open('https://www.facebook.com/ashly.fraser.96/', '_blank')}
+                  >
+                    <Facebook className="w-4 h-4" />
+                    Facebook
+                  </Button>
+                  <Button 
+                    className="bg-gradient-to-r from-gray-800 to-black hover:from-gray-900 hover:to-gray-800 text-white font-medium px-4 py-3 rounded-xl text-sm active:scale-95 transition-transform flex items-center gap-2"
                     onClick={() => window.open('https://tiktok.com/@savingsguru', '_blank')}
                   >
-                    Watch Tutorials
+                    <MessageCircle className="w-4 h-4" />
+                    TikTok
+                  </Button>
+                  <Button 
+                    className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium px-4 py-3 rounded-xl text-sm active:scale-95 transition-transform flex items-center gap-2"
+                    onClick={() => window.open('https://www.youtube.com/channel/UCbVX-yAa2etLXvkYGx1C_Dw', '_blank')}
+                  >
+                    <Youtube className="w-4 h-4" />
+                    YouTube
+                  </Button>
+                  <Button 
+                    className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-medium px-4 py-3 rounded-xl text-sm active:scale-95 transition-transform flex items-center gap-2"
+                    onClick={() => window.open('https://www.threads.com/@ashly_savingsguruca', '_blank')}
+                  >
+                    <AtSign className="w-4 h-4" />
+                    Threads
                   </Button>
                 </div>
               </div>

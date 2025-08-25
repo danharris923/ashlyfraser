@@ -38,11 +38,8 @@ export default function About() {
             {/* Media logos */}
             <div className="mt-12">
               <p className="text-gray-600 font-medium mb-6 text-lg">As featured in:</p>
-              <div className="flex justify-center items-center space-x-8 opacity-60">
-                <div className="text-2xl font-bold text-gray-400">Global TV</div>
-                <div className="text-2xl font-bold text-gray-400">CBC</div>
-                <div className="text-2xl font-bold text-gray-400">CTV</div>
-                <div className="text-2xl font-bold text-gray-400">BlogTO</div>
+              <div className="flex justify-center items-center opacity-60">
+                <div className="text-2xl font-bold text-gray-400">The Globe and Mail</div>
               </div>
             </div>
           </div>
@@ -56,7 +53,7 @@ export default function About() {
               viewport={{ once: true }}
               className="bg-gradient-to-br from-rose-100 to-rose-200 rounded-2xl p-6 border border-rose-300"
             >
-              <div className="text-4xl md:text-5xl font-bold text-rose-600 mb-2 font-sans">500K+</div>
+              <div className="text-4xl md:text-5xl font-bold text-rose-600 mb-2 font-sans">100K+</div>
               <div className="text-gray-700 font-normal font-sans">Social Followers</div>
             </motion.div>
             
@@ -89,7 +86,7 @@ export default function About() {
               viewport={{ once: true }}
               className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-6 border border-blue-300"
             >
-              <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-2 font-sans">5+ Years</div>
+              <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-2 font-sans">10+ Years</div>
               <div className="text-gray-700 font-normal font-sans">Deal Expertise</div>
             </motion.div>
           </div>

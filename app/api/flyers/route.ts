@@ -15,6 +15,7 @@ interface FlippItem {
   valid_to?: string
   category?: string
   image_url?: string
+  website_url?: string
 }
 
 export async function GET(request: Request) {
@@ -45,7 +46,8 @@ export async function GET(request: Request) {
         imageUrl: item.image_url,
         validUntil: item.valid_to,
         category: item.category,
-        location: 'Toronto, ON'
+        location: 'Toronto, ON',
+        websiteUrl: item.website_url
       })) || []
 
       return NextResponse.json({ flyers })
@@ -65,7 +67,9 @@ export async function GET(request: Request) {
       discount: '33% OFF',
       category: 'Seafood',
       validUntil: '2025-08-31',
-      location: 'Toronto, ON'
+      location: 'Toronto, ON',
+      imageUrl: 'https://images.unsplash.com/photo-1499125562588-29fb8a56b4d1?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.loblaws.ca'
     },
     {
       id: '2',
@@ -76,7 +80,9 @@ export async function GET(request: Request) {
       discount: '30% OFF',
       category: 'Produce',
       validUntil: '2025-08-30',
-      location: 'Toronto, ON'
+      location: 'Toronto, ON',
+      imageUrl: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.metro.ca'
     },
     {
       id: '3',
@@ -87,7 +93,9 @@ export async function GET(request: Request) {
       discount: '43% OFF',
       category: 'Breakfast',
       validUntil: '2025-09-02',
-      location: 'Toronto, ON'
+      location: 'Toronto, ON',
+      imageUrl: 'https://images.unsplash.com/photo-1574672280600-4accfa5b6f98?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.nofrills.ca'
     },
     {
       id: '4',
@@ -99,7 +107,8 @@ export async function GET(request: Request) {
       category: 'Dairy',
       validUntil: '2025-08-29',
       location: 'Toronto, ON',
-      imageUrl: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&h=300&fit=crop'
+      imageUrl: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.shoppersdrugmart.ca'
     },
     {
       id: '5',
@@ -110,7 +119,9 @@ export async function GET(request: Request) {
       discount: '37% OFF',
       category: 'Meat',
       validUntil: '2025-08-31',
-      location: 'Toronto, ON'
+      location: 'Toronto, ON',
+      imageUrl: 'https://images.unsplash.com/photo-1588347818411-d4b7d19bb0d4?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.sobeys.com'
     },
     {
       id: '6',
@@ -121,7 +132,9 @@ export async function GET(request: Request) {
       discount: '46% OFF',
       category: 'Beverages',
       validUntil: '2025-08-28',
-      location: 'Toronto, ON'
+      location: 'Toronto, ON',
+      imageUrl: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.walmart.ca'
     },
     {
       id: '7',
@@ -132,7 +145,9 @@ export async function GET(request: Request) {
       discount: '46% OFF',
       category: 'Bakery',
       validUntil: '2025-09-01',
-      location: 'Toronto, ON'
+      location: 'Toronto, ON',
+      imageUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.freshco.com'
     },
     {
       id: '8',
@@ -143,7 +158,9 @@ export async function GET(request: Request) {
       discount: '37% OFF',
       category: 'Frozen',
       validUntil: '2025-08-30',
-      location: 'Toronto, ON'
+      location: 'Toronto, ON',
+      imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.loblaws.ca'
     },
     {
       id: '9',
@@ -154,7 +171,9 @@ export async function GET(request: Request) {
       discount: '43% OFF',
       category: 'Pantry',
       validUntil: '2025-09-02',
-      location: 'Toronto, ON'
+      location: 'Toronto, ON',
+      imageUrl: 'https://images.unsplash.com/photo-1516478177764-9fe5bd7e9717?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.foodbasics.ca'
     },
     {
       id: '10',
@@ -165,7 +184,9 @@ export async function GET(request: Request) {
       discount: '50% OFF',
       category: 'Produce',
       validUntil: '2025-08-29',
-      location: 'Toronto, ON'
+      location: 'Toronto, ON',
+      imageUrl: 'https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.nofrills.ca'
     },
     {
       id: '11',
@@ -176,7 +197,9 @@ export async function GET(request: Request) {
       discount: '40% OFF',
       category: 'Snacks',
       validUntil: '2025-08-31',
-      location: 'Toronto, ON'
+      location: 'Toronto, ON',
+      imageUrl: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.metro.ca'
     },
     {
       id: '12',
@@ -187,7 +210,9 @@ export async function GET(request: Request) {
       discount: '43% OFF',
       category: 'Produce',
       validUntil: '2025-09-03',
-      location: 'Toronto, ON'
+      location: 'Toronto, ON',
+      imageUrl: 'https://images.unsplash.com/photo-1587241321257-a7b5bc64c8ec?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.farmboy.ca'
     }
   ]
 
