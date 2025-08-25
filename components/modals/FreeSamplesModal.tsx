@@ -13,6 +13,8 @@ interface FreeSamplesModalProps {
 
 export default function FreeSamplesModal({ isOpen, onClose }: FreeSamplesModalProps) {
   const [activeTab, setActiveTab] = useState('all')
+  const [startY, setStartY] = useState(0)
+  const [currentY, setCurrentY] = useState(0)
 
   useEffect(() => {
     if (isOpen) {
@@ -36,6 +38,25 @@ export default function FreeSamplesModal({ isOpen, onClose }: FreeSamplesModalPr
     if (e.key === 'Escape') {
       onClose()
     }
+  }
+
+  // Touch/swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setStartY(e.touches[0].clientY)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setCurrentY(e.touches[0].clientY)
+  }
+
+  const handleTouchEnd = () => {
+    const deltaY = startY - currentY
+    // Swipe down to close (threshold of 100px)
+    if (deltaY < -100) {
+      onClose()
+    }
+    setStartY(0)
+    setCurrentY(0)
   }
 
   useEffect(() => {
@@ -142,7 +163,16 @@ export default function FreeSamplesModal({ isOpen, onClose }: FreeSamplesModalPr
       className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={handleBackdropClick}
     >
-      <div className="fixed inset-0 flex flex-col bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 animate-in slide-in-from-bottom duration-300 md:animate-in md:slide-in-from-bottom-4 md:fade-in md:zoom-in-95 md:inset-4 md:rounded-2xl md:shadow-2xl">
+      <div 
+        className="fixed bottom-0 left-0 right-0 top-16 md:top-8 md:bottom-8 md:left-8 md:right-8 md:max-w-4xl md:mx-auto flex flex-col bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 animate-in slide-in-from-bottom duration-300 rounded-t-2xl md:rounded-2xl shadow-2xl"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        {/* Swipe indicator */}
+        <div className="flex justify-center pt-2 pb-1">
+          <div className="w-12 h-1 bg-gray-300 rounded-full"></div>
+        </div>
         
         {/* Header */}
         <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-md border-b border-emerald-200">
