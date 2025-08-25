@@ -34,7 +34,7 @@ export default function CashbackAppsAdmin() {
   const [authenticated, setAuthenticated] = useState(false)
   const [password, setPassword] = useState('')
 
-  const ADMIN_PASSWORD = 'ashly2024'
+  const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'ashly2024'
 
   const handleLogin = () => {
     if (password === ADMIN_PASSWORD) {
