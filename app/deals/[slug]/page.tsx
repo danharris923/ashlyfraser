@@ -64,8 +64,3 @@ export default function DealPage() {
   )
 }
 
-export async function generateStaticParams() {
-  return Object.keys(dealPages).map((slug) => ({
-    slug,
-  }))
-}
