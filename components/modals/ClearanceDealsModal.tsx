@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { ArrowLeft, ExternalLink } from 'lucide-react'
 import { Instagram, Facebook, MessageCircle, Youtube, AtSign } from 'lucide-react'
 import Image from 'next/image'
@@ -13,50 +13,117 @@ interface ClearanceDealsModalProps {
   onClose: () => void
 }
 
-const clearanceDeals = [
-  {
-    id: 'lululemon',
-    brand: 'Lululemon',
-    description: 'Exclusive clearance on activewear, leggings, and athletic apparel',
-    discount: 'Up to 70% OFF',
-    logo: 'https://logos-world.net/wp-content/uploads/2020/09/Lululemon-Logo.png',
-    url: 'https://shopstyle.it/l/cj22Z',
-    color: 'from-red-400 to-red-600',
-    bgColor: 'from-red-50 to-red-100'
-  },
-  {
-    id: 'michaelkors',
-    brand: 'Michael Kors',
-    description: 'Designer handbags, watches, and accessories at clearance prices',
-    discount: 'Up to 60% OFF',
-    logo: 'https://logos-world.net/wp-content/uploads/2020/09/Michael-Kors-Logo.png',
-    url: 'https://shopstyle.it/l/cj24F',
-    color: 'from-amber-400 to-amber-600',
-    bgColor: 'from-amber-50 to-amber-100'
-  },
-  {
-    id: 'sephora',
-    brand: 'Sephora',
-    description: 'Beauty gift sets, makeup palettes, and skincare bundles on sale',
-    discount: 'Gift Sets',
-    logo: 'https://www.sephora.com/img/ufe/icons/logo-sephora-v2.svg',
-    url: 'https://www.savingsguru.ca/2024/11/06/sephora-sale-gift-sets/',
-    color: 'from-pink-400 to-pink-600',
-    bgColor: 'from-pink-50 to-pink-100'
-  },
-  {
-    id: 'gap',
-    brand: 'GAP',
-    description: 'Seasonal clearance on clothing for the whole family',
-    discount: 'Flash Sale',
-    logo: 'https://logos-world.net/wp-content/uploads/2020/09/Gap-Logo.png',
-    url: 'https://shopstyle.it/l/cj24C',
-    color: 'from-blue-400 to-blue-600',
-    bgColor: 'from-blue-50 to-blue-100'
-  }
-]
+interface ClearanceDeal {
+  id: string
+  title: string
+  description: string
+  savings: string
+  category: string
+  brand: string
+  logoUrl: string
+  imageUrl: string
+  websiteUrl: string
+  validUntil: string
+}
 
 export default function ClearanceDealsModal({ isOpen, onClose }: ClearanceDealsModalProps) {
+  const [deals, setDeals] = useState<ClearanceDeal[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchDeals()
+    }
+  }, [isOpen])
+
+  const fetchDeals = async () => {
+    try {
+      const response = await fetch('/api/clearance')
+      const data = await response.json()
+      setDeals(data.clearanceDeals)
+      setLoading(false)
+    } catch (error) {
+      console.error('Error fetching clearance deals:', error)
+      setLoading(false)
+    }
+  }
+
+  // Keep the fallback clearance deals in case API fails - with proper structure
+  const fallbackDeals = [
+    {
+      id: 'lululemon',
+      title: 'Lululemon Clearance',
+      brand: 'Lululemon',
+      description: 'Exclusive clearance on activewear, leggings, and athletic apparel',
+      savings: 'Up to 70% OFF',
+      category: 'Athletic Wear',
+      logoUrl: 'https://logos-world.net/wp-content/uploads/2020/09/Lululemon-Logo.png',
+      imageUrl: 'https://images.unsplash.com/photo-1506629905607-53e103a0265d?w=400&h=300&fit=crop',
+      websiteUrl: 'https://shop.lululemon.com/c/clearance',
+      validUntil: '2025-09-15',
+      // Fallback properties for old structure
+      discount: 'Up to 70% OFF',
+      logo: 'https://logos-world.net/wp-content/uploads/2020/09/Lululemon-Logo.png',
+      url: 'https://shop.lululemon.com/c/clearance',
+      color: 'from-red-400 to-red-600',
+      bgColor: 'from-red-50 to-red-100'
+    },
+    {
+      id: 'michaelkors',
+      title: 'Michael Kors Clearance',
+      brand: 'Michael Kors',
+      description: 'Designer handbags, watches, and accessories at clearance prices',
+      savings: 'Up to 60% OFF',
+      category: 'Designer',
+      logoUrl: 'https://1000logos.net/wp-content/uploads/2017/03/Michael-Kors-Logo.png',
+      imageUrl: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.michaelkors.ca/sale',
+      validUntil: '2025-09-10',
+      // Fallback properties
+      discount: 'Up to 60% OFF',
+      logo: 'https://1000logos.net/wp-content/uploads/2017/03/Michael-Kors-Logo.png',
+      url: 'https://www.michaelkors.ca/sale',
+      color: 'from-amber-400 to-amber-600',
+      bgColor: 'from-amber-50 to-amber-100'
+    },
+    {
+      id: 'sephora',
+      title: 'Sephora Clearance',
+      brand: 'Sephora',
+      description: 'Beauty gift sets, makeup palettes, and skincare bundles on sale',
+      savings: 'Up to 50% OFF',
+      category: 'Beauty',
+      logoUrl: 'https://logos-world.net/wp-content/uploads/2020/04/Sephora-Logo.png',
+      imageUrl: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.sephora.com/ca/sale',
+      validUntil: '2025-09-12',
+      // Fallback properties
+      discount: 'Up to 50% OFF',
+      logo: 'https://logos-world.net/wp-content/uploads/2020/04/Sephora-Logo.png',
+      url: 'https://www.sephora.com/ca/sale',
+      color: 'from-pink-400 to-pink-600',
+      bgColor: 'from-pink-50 to-pink-100'
+    },
+    {
+      id: 'gap',
+      title: 'GAP Clearance',
+      brand: 'GAP',
+      description: 'Seasonal clearance on clothing for the whole family',
+      savings: 'Up to 70% OFF',
+      category: 'Clothing',
+      logoUrl: 'https://logos-world.net/wp-content/uploads/2020/04/Gap-Logo.png',
+      imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop',
+      websiteUrl: 'https://www.gap.ca/browse/division.do?cid=5243',
+      validUntil: '2025-09-08',
+      // Fallback properties
+      discount: 'Up to 70% OFF',
+      logo: 'https://logos-world.net/wp-content/uploads/2020/04/Gap-Logo.png',
+      url: 'https://www.gap.ca/browse/division.do?cid=5243',
+      color: 'from-blue-400 to-blue-600',
+      bgColor: 'from-blue-50 to-blue-100'
+    }
+]
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -133,33 +200,43 @@ export default function ClearanceDealsModal({ isOpen, onClose }: ClearanceDealsM
               </p>
             </div>
 
+            {loading && (
+              <div className="text-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500 mx-auto"></div>
+                <p className="mt-2 text-gray-600">Loading clearance deals...</p>
+              </div>
+            )}
+
             {/* Deals grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {clearanceDeals.map((deal) => (
+              {(deals.length > 0 ? deals : fallbackDeals).map((deal) => (
                 <Card 
                   key={deal.id} 
                   className={`group hover:shadow-lg transition-all duration-200 border-2 bg-gradient-to-br ${deal.bgColor} border-amber-200 hover:border-amber-400 overflow-hidden active:scale-95`}
                 >
                   <CardContent className="p-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="relative w-32 h-16 bg-white rounded-lg p-3 shadow-sm">
+                    {/* Much larger brand logo section */}
+                    <div className="mb-4">
+                      <div className="relative w-full h-24 bg-white rounded-lg p-4 shadow-sm mb-3">
                         <Image
-                          src={deal.logo}
+                          src={deal.logoUrl || deal.logo}
                           alt={`${deal.brand} logo`}
                           fill
-                          className="object-contain"
-                          sizes="128px"
+                          className="object-contain p-2"
+                          sizes="300px"
                         />
                       </div>
-                      <Badge className={`px-3 py-1 text-sm font-bold text-white bg-gradient-to-r ${deal.color}`}>
-                        {deal.discount}
-                      </Badge>
+                      <div className="flex justify-between items-center">
+                        <h3 className="text-xl font-bold text-gray-900">
+                          {deal.brand} Clearance
+                        </h3>
+                        <Badge className="px-4 py-2 text-sm font-bold text-white bg-gradient-to-r from-amber-500 to-orange-500">
+                          {deal.savings || deal.discount}
+                        </Badge>
+                      </div>
                     </div>
                     
                     <div className="mb-4">
-                      <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-amber-700 transition-colors">
-                        {deal.brand} Clearance
-                      </h3>
                       <p className="text-sm text-gray-700 leading-relaxed">
                         {deal.description}
                       </p>
@@ -167,8 +244,8 @@ export default function ClearanceDealsModal({ isOpen, onClose }: ClearanceDealsM
 
                     <div className="flex items-center gap-3">
                       <Button 
-                        className={`flex-1 bg-gradient-to-r ${deal.color} hover:opacity-90 text-white font-bold py-3 text-sm rounded-xl transition-all duration-200 active:scale-95`}
-                        onClick={() => window.open(deal.url, '_blank')}
+                        className="flex-1 bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-90 text-white font-bold py-3 text-sm rounded-xl transition-all duration-200 active:scale-95"
+                        onClick={() => window.open(deal.websiteUrl || deal.url, '_blank')}
                       >
                         <span>Shop Now</span>
                         <ExternalLink className="w-4 h-4 ml-2" />
