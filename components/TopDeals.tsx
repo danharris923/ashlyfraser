@@ -5,13 +5,8 @@ import { motion } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import GroceryFlyersModal from "@/components/modals/GroceryFlyersModal"
-import ClearanceDealsModal from "@/components/modals/ClearanceDealsModal"
-import PrintableCouponsModal from "@/components/modals/PrintableCouponsModal"
-import MailOutCouponsModal from "@/components/modals/MailOutCouponsModal"
-import CouponGuideModal from "@/components/modals/CouponGuideModal"
-import CashbackAppsModal from "@/components/modals/CashbackAppsModal"
-import FreeSamplesModal from "@/components/modals/FreeSamplesModal"
 
 interface Deal {
   id: string
@@ -29,13 +24,8 @@ interface Deal {
 }
 
 export default function TopDeals() {
+  const router = useRouter()
   const [groceryModalOpen, setGroceryModalOpen] = useState(false)
-  const [clearanceModalOpen, setClearanceModalOpen] = useState(false)
-  const [printableCouponsModalOpen, setPrintableCouponsModalOpen] = useState(false)
-  const [mailOutCouponsModalOpen, setMailOutCouponsModalOpen] = useState(false)
-  const [couponGuideModalOpen, setCouponGuideModalOpen] = useState(false)
-  const [cashbackAppsModalOpen, setCashbackAppsModalOpen] = useState(false)
-  const [freeSamplesModalOpen, setFreeSamplesModalOpen] = useState(false)
   const [deals, setDeals] = useState<Deal[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -74,18 +64,14 @@ export default function TopDeals() {
   const handleModalOpen = (modalType: string) => {
     if (modalType === 'grocery') {
       setGroceryModalOpen(true)
-    } else if (modalType === 'clearance') {
-      setClearanceModalOpen(true)
-    } else if (modalType === 'printable') {
-      setPrintableCouponsModalOpen(true)
-    } else if (modalType === 'mailout') {
-      setMailOutCouponsModalOpen(true)
-    } else if (modalType === 'guide') {
-      setCouponGuideModalOpen(true)
     } else if (modalType === 'cashback-apps') {
-      setCashbackAppsModalOpen(true)
+      router.push('/deals/cashback-apps')
     } else if (modalType === 'free-samples') {
-      setFreeSamplesModalOpen(true)
+      router.push('/deals/free-samples')
+    } else if (modalType === 'clearance') {
+      router.push('/deals/clearance-deals')
+    } else if (modalType === 'guide') {
+      router.push('/deals/coupon-stacking')
     }
   }
 
@@ -179,34 +165,10 @@ export default function TopDeals() {
         </motion.div>
       </div>
       
-      {/* Modals */}
+      {/* Only grocery modal remains - others are now pages */}
       <GroceryFlyersModal 
         isOpen={groceryModalOpen}
         onClose={() => setGroceryModalOpen(false)}
-      />
-      <ClearanceDealsModal
-        isOpen={clearanceModalOpen}
-        onClose={() => setClearanceModalOpen(false)}
-      />
-      <PrintableCouponsModal
-        isOpen={printableCouponsModalOpen}
-        onClose={() => setPrintableCouponsModalOpen(false)}
-      />
-      <MailOutCouponsModal
-        isOpen={mailOutCouponsModalOpen}
-        onClose={() => setMailOutCouponsModalOpen(false)}
-      />
-      <CouponGuideModal
-        isOpen={couponGuideModalOpen}
-        onClose={() => setCouponGuideModalOpen(false)}
-      />
-      <CashbackAppsModal
-        isOpen={cashbackAppsModalOpen}
-        onClose={() => setCashbackAppsModalOpen(false)}
-      />
-      <FreeSamplesModal
-        isOpen={freeSamplesModalOpen}
-        onClose={() => setFreeSamplesModalOpen(false)}
       />
     </section>
   )
