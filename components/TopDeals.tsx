@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -13,6 +13,21 @@ import CouponGuideModal from "@/components/modals/CouponGuideModal"
 import CashbackAppsModal from "@/components/modals/CashbackAppsModal"
 import FreeSamplesModal from "@/components/modals/FreeSamplesModal"
 
+interface Deal {
+  id: string
+  title: string
+  description: string
+  savings: string
+  category: string
+  color: string
+  bgColor: string
+  borderColor: string
+  action?: string
+  modal?: string
+  link?: string
+  enabled: boolean
+}
+
 export default function TopDeals() {
   const [groceryModalOpen, setGroceryModalOpen] = useState(false)
   const [clearanceModalOpen, setClearanceModalOpen] = useState(false)
@@ -21,105 +36,58 @@ export default function TopDeals() {
   const [couponGuideModalOpen, setCouponGuideModalOpen] = useState(false)
   const [cashbackAppsModalOpen, setCashbackAppsModalOpen] = useState(false)
   const [freeSamplesModalOpen, setFreeSamplesModalOpen] = useState(false)
-  const deals = [
-    {
-      title: "Grocery Deals",
-      description: "Weekly grocery flyers and deals across Canada",
-      savings: "Up to 70% off",
-      category: "Food & Groceries",
-      color: "from-green-400 to-green-600",
-      bgColor: "from-green-50 to-green-100",
-      borderColor: "border-green-200",
-      action: "modal",
-      modal: "grocery"
-    },
-    {
-      title: "Cashback Apps",
-      description: "Compare all 8 top Canadian cashback apps in one place - from Rakuten to KOHO",
-      savings: "Up to 30% back",
-      category: "Cashback Apps",
-      color: "from-blue-500 to-indigo-600",
-      bgColor: "from-blue-50 to-indigo-100",
-      borderColor: "border-blue-200",
-      action: "modal",
-      modal: "cashback-apps"
-    },
-    {
-      title: "Free Samples",
-      description: "Best sources for free products and samples across Canada",
-      savings: "100% Free",
-      category: "Free Samples",
-      color: "from-rose-500 to-pink-600",
-      bgColor: "from-rose-50 to-pink-100",
-      borderColor: "border-rose-200",
-      action: "modal",
-      modal: "free-samples"
-    },
-    {
-      title: "Online Deals",
-      description: "Exclusive promo codes and flash sales from major retailers",
-      savings: "Up to 80% off",
-      category: "E-commerce",
-      color: "from-purple-400 to-purple-600",
-      bgColor: "from-purple-50 to-purple-100",
-      borderColor: "border-purple-200",
-      link: "https://www.rakuten.ca"
-    },
-    {
-      title: "Clearance Finds",
-      description: "Seasonal clearance and end-of-line product discoveries",
-      savings: "Up to 90% off",
-      category: "Clearance",
-      color: "from-amber-400 to-amber-600",
-      bgColor: "from-amber-50 to-amber-100",
-      borderColor: "border-amber-200",
-      action: "modal",
-      modal: "clearance"
-    },
-    {
-      title: "Kids & Family",
-      description: "Money-saving deals on everything for Canadian families",
-      savings: "Family Focused",
-      category: "Family",
-      color: "from-pink-400 to-pink-600",
-      bgColor: "from-pink-50 to-pink-100",
-      borderColor: "border-pink-200",
-      link: "https://www.toogoodtogo.com/en-ca"
-    },
-    {
-      title: "Printable Coupons",
-      description: "Top Canadian coupon sites and cashback programs",
-      savings: "Free Coupons",
-      category: "Coupons",
-      color: "from-indigo-400 to-purple-600",
-      bgColor: "from-indigo-50 to-purple-100",
-      borderColor: "border-indigo-200",
-      action: "modal",
-      modal: "printable"
-    },
-    {
-      title: "Mail-Out Coupons",
-      description: "Companies that send free coupons and samples by mail",
-      savings: "Direct Mail",
-      category: "Coupons",
-      color: "from-emerald-400 to-teal-600",
-      bgColor: "from-emerald-50 to-teal-100",
-      borderColor: "border-emerald-200",
-      action: "modal",
-      modal: "mailout"
-    },
-    {
-      title: "Coupon Guide",
-      description: "Complete beginner's guide to couponing in Canada",
-      savings: "Learn & Save",
-      category: "Education",
-      color: "from-rose-400 to-pink-600",
-      bgColor: "from-rose-50 to-pink-100",
-      borderColor: "border-rose-200",
-      action: "modal",
-      modal: "guide"
+  const [deals, setDeals] = useState<Deal[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchDeals()
+  }, [])
+
+  const fetchDeals = async () => {
+    try {
+      const response = await fetch('/api/deals')
+      const data = await response.json()
+      setDeals(data.filter((deal: Deal) => deal.enabled))
+      setLoading(false)
+    } catch (error) {
+      console.error('Error fetching deals:', error)
+      // Fallback to empty array
+      setDeals([])
+      setLoading(false)
     }
-  ]
+  }
+
+  // Show loading state
+  if (loading) {
+    return (
+      <section id="deals" className="py-20 px-4 bg-gradient-to-br from-gray-50 to-white">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading deals...</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  const handleModalOpen = (modalType: string) => {
+    if (modalType === 'grocery') {
+      setGroceryModalOpen(true)
+    } else if (modalType === 'clearance') {
+      setClearanceModalOpen(true)
+    } else if (modalType === 'printable') {
+      setPrintableCouponsModalOpen(true)
+    } else if (modalType === 'mailout') {
+      setMailOutCouponsModalOpen(true)
+    } else if (modalType === 'guide') {
+      setCouponGuideModalOpen(true)
+    } else if (modalType === 'cashback-apps') {
+      setCashbackAppsModalOpen(true)
+    } else if (modalType === 'free-samples') {
+      setFreeSamplesModalOpen(true)
+    }
+  }
 
   return (
     <section id="deals" className="py-20 px-4 bg-gradient-to-br from-gray-50 to-white">
@@ -168,23 +136,7 @@ export default function TopDeals() {
                   {deal.action === 'modal' ? (
                     <Button 
                       className={`w-full bg-gradient-to-r ${deal.color} hover:opacity-90 text-white font-semibold py-3 rounded-xl transition-all duration-300`}
-                      onClick={() => {
-                        if (deal.modal === 'grocery') {
-                          setGroceryModalOpen(true)
-                        } else if (deal.modal === 'clearance') {
-                          setClearanceModalOpen(true)
-                        } else if (deal.modal === 'printable') {
-                          setPrintableCouponsModalOpen(true)
-                        } else if (deal.modal === 'mailout') {
-                          setMailOutCouponsModalOpen(true)
-                        } else if (deal.modal === 'guide') {
-                          setCouponGuideModalOpen(true)
-                        } else if (deal.modal === 'cashback-apps') {
-                          setCashbackAppsModalOpen(true)
-                        } else if (deal.modal === 'free-samples') {
-                          setFreeSamplesModalOpen(true)
-                        }
-                      }}
+                      onClick={() => handleModalOpen(deal.modal || '')}
                     >
                       View Deals
                     </Button>
