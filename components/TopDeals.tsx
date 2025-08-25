@@ -10,17 +10,8 @@ import ClearanceDealsModal from "@/components/modals/ClearanceDealsModal"
 import PrintableCouponsModal from "@/components/modals/PrintableCouponsModal"
 import MailOutCouponsModal from "@/components/modals/MailOutCouponsModal"
 import CouponGuideModal from "@/components/modals/CouponGuideModal"
-import RakutenModal from "@/components/modals/RakutenModal"
-import GCRModal from "@/components/modals/GCRModal"
-import Checkout51Modal from "@/components/modals/Checkout51Modal"
-import DropModal from "@/components/modals/DropModal"
-import CaddleModal from "@/components/modals/CaddleModal"
-import AmpliModal from "@/components/modals/AmpliModal"
-import PaymiModal from "@/components/modals/PaymiModal"
-import KOHOModal from "@/components/modals/KOHOModal"
-import SampleSourceModal from "@/components/modals/SampleSourceModal"
-import GetMeFreeSamplesModal from "@/components/modals/GetMeFreeSamplesModal"
-import CanadianParentModal from "@/components/modals/CanadianParentModal"
+import CashbackAppsModal from "@/components/modals/CashbackAppsModal"
+import FreeSamplesModal from "@/components/modals/FreeSamplesModal"
 
 export default function TopDeals() {
   const [groceryModalOpen, setGroceryModalOpen] = useState(false)
@@ -28,17 +19,8 @@ export default function TopDeals() {
   const [printableCouponsModalOpen, setPrintableCouponsModalOpen] = useState(false)
   const [mailOutCouponsModalOpen, setMailOutCouponsModalOpen] = useState(false)
   const [couponGuideModalOpen, setCouponGuideModalOpen] = useState(false)
-  const [rakutenModalOpen, setRakutenModalOpen] = useState(false)
-  const [gcrModalOpen, setGCRModalOpen] = useState(false)
-  const [checkout51ModalOpen, setCheckout51ModalOpen] = useState(false)
-  const [dropModalOpen, setDropModalOpen] = useState(false)
-  const [caddleModalOpen, setCaddleModalOpen] = useState(false)
-  const [ampliModalOpen, setAmpliModalOpen] = useState(false)
-  const [paymiModalOpen, setPaymiModalOpen] = useState(false)
-  const [kohoModalOpen, setKohoModalOpen] = useState(false)
-  const [sampleSourceModalOpen, setSampleSourceModalOpen] = useState(false)
-  const [getMeFreeSamplesModalOpen, setGetMeFreeSamplesModalOpen] = useState(false)
-  const [canadianParentModalOpen, setCanadianParentModalOpen] = useState(false)
+  const [cashbackAppsModalOpen, setCashbackAppsModalOpen] = useState(false)
+  const [freeSamplesModalOpen, setFreeSamplesModalOpen] = useState(false)
   const deals = [
     {
       title: "Grocery Deals",
@@ -52,37 +34,26 @@ export default function TopDeals() {
       modal: "grocery"
     },
     {
-      title: "SampleSource Canada",
-      description: "Canada's #1 free sample platform with 4 campaigns yearly",
-      savings: "100% Free",
-      category: "Sample Platform",
-      color: "from-rose-500 to-pink-500",
-      bgColor: "from-rose-50 to-pink-50",
-      borderColor: "border-rose-200",
-      action: "modal",
-      modal: "samplesource"
-    },
-    {
-      title: "GetMeFreeSamples",
-      description: "Daily updated directory of free samples by mail",
-      savings: "Daily updates",
-      category: "Sample Directory",
-      color: "from-green-600 to-emerald-600",
-      bgColor: "from-green-50 to-emerald-50",
+      title: "Cashback Apps",
+      description: "Compare all 8 top Canadian cashback apps in one place - from Rakuten to KOHO",
+      savings: "Up to 30% back",
+      category: "Cashback Apps",
+      color: "from-green-500 to-emerald-600",
+      bgColor: "from-green-50 to-emerald-100",
       borderColor: "border-green-200",
       action: "modal",
-      modal: "getmefreesamples"
+      modal: "cashback-apps"
     },
     {
-      title: "Canadian Parent",
-      description: "Curated family-focused freebies and sample offers",
-      savings: "Family focus",
-      category: "Family Samples",
-      color: "from-pink-500 to-rose-500",
-      bgColor: "from-pink-50 to-rose-50",
-      borderColor: "border-pink-200",
+      title: "Free Samples",
+      description: "Best sources for free products and samples across Canada",
+      savings: "100% Free",
+      category: "Free Samples",
+      color: "from-emerald-500 to-teal-600",
+      bgColor: "from-emerald-50 to-teal-100",
+      borderColor: "border-emerald-200",
       action: "modal",
-      modal: "canadianparent"
+      modal: "free-samples"
     },
     {
       title: "Online Deals",
@@ -93,94 +64,6 @@ export default function TopDeals() {
       bgColor: "from-purple-50 to-purple-100",
       borderColor: "border-purple-200",
       link: "https://www.rakuten.ca"
-    },
-    {
-      title: "Rakuten Canada",
-      description: "Get paid to shop online at 750+ Canadian stores",
-      savings: "Up to 10% back",
-      category: "Online Cashback",
-      color: "from-purple-400 to-red-500",
-      bgColor: "from-purple-50 to-red-50",
-      borderColor: "border-purple-200",
-      action: "modal",
-      modal: "rakuten"
-    },
-    {
-      title: "Great Canadian Rebates",
-      description: "Higher cashback rates than competitors",
-      savings: "Up to 15% back",
-      category: "Premium Cashback",
-      color: "from-red-500 to-red-600",
-      bgColor: "from-red-50 to-red-100",
-      borderColor: "border-red-200",
-      action: "modal",
-      modal: "gcr"
-    },
-    {
-      title: "Checkout 51",
-      description: "Scan grocery receipts for instant cashback",
-      savings: "Weekly offers",
-      category: "Grocery Cashback",
-      color: "from-green-500 to-emerald-500",
-      bgColor: "from-green-50 to-emerald-50",
-      borderColor: "border-green-200",
-      action: "modal",
-      modal: "checkout51"
-    },
-    {
-      title: "Drop App",
-      description: "Earn points on everyday purchases automatically",
-      savings: "Gift cards",
-      category: "Points Rewards",
-      color: "from-blue-500 to-purple-500",
-      bgColor: "from-blue-50 to-purple-50",
-      borderColor: "border-blue-200",
-      action: "modal",
-      modal: "drop"
-    },
-    {
-      title: "Caddle",
-      description: "Surveys + grocery cashback, Canadian-owned",
-      savings: "2 ways to earn",
-      category: "Surveys + Cashback",
-      color: "from-orange-500 to-amber-500",
-      bgColor: "from-orange-50 to-amber-50",
-      borderColor: "border-orange-200",
-      action: "modal",
-      modal: "caddle"
-    },
-    {
-      title: "Ampli by RBC",
-      description: "Automatic cashback with bank-grade security",
-      savings: "Auto cashback",
-      category: "Banking Cashback",
-      color: "from-blue-600 to-indigo-600",
-      bgColor: "from-blue-50 to-indigo-50",
-      borderColor: "border-blue-200",
-      action: "modal",
-      modal: "ampli"
-    },
-    {
-      title: "Paymi",
-      description: "Passive automatic cashback with multi-bank support",
-      savings: "Set & forget",
-      category: "Passive Cashback",
-      color: "from-teal-500 to-cyan-500",
-      bgColor: "from-teal-50 to-cyan-50",
-      borderColor: "border-teal-200",
-      action: "modal",
-      modal: "paymi"
-    },
-    {
-      title: "KOHO",
-      description: "Banking + budgeting + cashback all-in-one",
-      savings: "Up to 2%",
-      category: "Banking + Cashback",
-      color: "from-emerald-600 to-teal-600",
-      bgColor: "from-emerald-50 to-teal-50",
-      borderColor: "border-emerald-200",
-      action: "modal",
-      modal: "koho"
     },
     {
       title: "Clearance Finds",
@@ -296,28 +179,10 @@ export default function TopDeals() {
                           setMailOutCouponsModalOpen(true)
                         } else if (deal.modal === 'guide') {
                           setCouponGuideModalOpen(true)
-                        } else if (deal.modal === 'rakuten') {
-                          setRakutenModalOpen(true)
-                        } else if (deal.modal === 'gcr') {
-                          setGCRModalOpen(true)
-                        } else if (deal.modal === 'checkout51') {
-                          setCheckout51ModalOpen(true)
-                        } else if (deal.modal === 'drop') {
-                          setDropModalOpen(true)
-                        } else if (deal.modal === 'caddle') {
-                          setCaddleModalOpen(true)
-                        } else if (deal.modal === 'ampli') {
-                          setAmpliModalOpen(true)
-                        } else if (deal.modal === 'paymi') {
-                          setPaymiModalOpen(true)
-                        } else if (deal.modal === 'koho') {
-                          setKohoModalOpen(true)
-                        } else if (deal.modal === 'samplesource') {
-                          setSampleSourceModalOpen(true)
-                        } else if (deal.modal === 'getmefreesamples') {
-                          setGetMeFreeSamplesModalOpen(true)
-                        } else if (deal.modal === 'canadianparent') {
-                          setCanadianParentModalOpen(true)
+                        } else if (deal.modal === 'cashback-apps') {
+                          setCashbackAppsModalOpen(true)
+                        } else if (deal.modal === 'free-samples') {
+                          setFreeSamplesModalOpen(true)
                         }
                       }}
                     >
@@ -383,49 +248,13 @@ export default function TopDeals() {
         isOpen={couponGuideModalOpen}
         onClose={() => setCouponGuideModalOpen(false)}
       />
-      <RakutenModal
-        isOpen={rakutenModalOpen}
-        onClose={() => setRakutenModalOpen(false)}
+      <CashbackAppsModal
+        isOpen={cashbackAppsModalOpen}
+        onClose={() => setCashbackAppsModalOpen(false)}
       />
-      <GCRModal
-        isOpen={gcrModalOpen}
-        onClose={() => setGCRModalOpen(false)}
-      />
-      <Checkout51Modal
-        isOpen={checkout51ModalOpen}
-        onClose={() => setCheckout51ModalOpen(false)}
-      />
-      <DropModal
-        isOpen={dropModalOpen}
-        onClose={() => setDropModalOpen(false)}
-      />
-      <CaddleModal
-        isOpen={caddleModalOpen}
-        onClose={() => setCaddleModalOpen(false)}
-      />
-      <AmpliModal
-        isOpen={ampliModalOpen}
-        onClose={() => setAmpliModalOpen(false)}
-      />
-      <PaymiModal
-        isOpen={paymiModalOpen}
-        onClose={() => setPaymiModalOpen(false)}
-      />
-      <KOHOModal
-        isOpen={kohoModalOpen}
-        onClose={() => setKohoModalOpen(false)}
-      />
-      <SampleSourceModal
-        isOpen={sampleSourceModalOpen}
-        onClose={() => setSampleSourceModalOpen(false)}
-      />
-      <GetMeFreeSamplesModal
-        isOpen={getMeFreeSamplesModalOpen}
-        onClose={() => setGetMeFreeSamplesModalOpen(false)}
-      />
-      <CanadianParentModal
-        isOpen={canadianParentModalOpen}
-        onClose={() => setCanadianParentModalOpen(false)}
+      <FreeSamplesModal
+        isOpen={freeSamplesModalOpen}
+        onClose={() => setFreeSamplesModalOpen(false)}
       />
     </section>
   )
